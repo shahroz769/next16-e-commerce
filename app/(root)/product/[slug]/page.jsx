@@ -4,11 +4,14 @@ import { getProductBySlug } from '@/lib/actions/product.actions';
 import { notFound } from 'next/navigation';
 import ProductImages from '@/components/shared/product/product-images';
 import AddToCart from '@/components/shared/product/add-to-card';
+import { getUserCart } from '@/lib/actions/cart.actions';
 
 const ProductDetailsPage = async (props) => {
     const { slug } = await props.params;
     const product = await getProductBySlug(slug);
     if (!product) notFound();
+    const cart = await getUserCart();
+
     return (
         <>
             <section>
@@ -29,7 +32,7 @@ const ProductDetailsPage = async (props) => {
                             </p>
                             <div className='flex flex-col justify-center w-24 gap-3 px-5 py-2 text-green-700 bg-green-100 rounded-full jus sm:flex-row sm:items-center'>
                                 <p className='text-2xl'>
-                                    ${Number(product.price)}
+                                    Rs. {Number(product.price)}
                                 </p>
                             </div>
                         </div>
@@ -46,7 +49,7 @@ const ProductDetailsPage = async (props) => {
                                     <div>Price</div>
                                     <div>
                                         <p className='text-2xl'>
-                                            ${Number(product.price)}
+                                            Rs. {Number(product.price)}
                                         </p>
                                     </div>
                                 </div>
@@ -65,6 +68,7 @@ const ProductDetailsPage = async (props) => {
                                 {product.stock > 0 && (
                                     <div className='flex-center'>
                                         <AddToCart
+                                            cart={cart}
                                             item={{
                                                 productId: product._id,
                                                 name: product.name,

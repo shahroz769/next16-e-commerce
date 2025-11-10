@@ -76,7 +76,7 @@ const productSchema = new Schema(
         category: { type: String, required: true, trim: true },
         description: { type: String, required: true, trim: true },
         images: [{ type: String, required: true }],
-        price: { type: Schema.Types.Decimal128, required: true, min: 0 },
+        price: { type: String, required: true },
         brand: { type: String, required: true, trim: true },
         rating: { type: Number, default: 0, min: 0, max: 5 },
         numReviews: { type: Number, default: 0, min: 0 },
@@ -107,9 +107,8 @@ const cartItemSchema = new Schema(
             required: true,
         },
         price: {
-            type: Schema.Types.Decimal128,
+            type: String,
             required: true,
-            min: 0,
         },
         qty: {
             type: Number,
@@ -146,21 +145,21 @@ const cartSchema = new Schema(
         items: [cartItemSchema],
 
         // --- Price fields ---
-        // Use Decimal128 for financial data to avoid floating-point errors
+        // Use String for financial data for better compatibility
         itemsPrice: {
-            type: Schema.Types.Decimal128,
+            type: String,
             required: true,
-            default: 0,
+            default: '0',
         },
         totalPrice: {
-            type: Schema.Types.Decimal128,
+            type: String,
             required: true,
-            default: 0,
+            default: '0',
         },
         shippingPrice: {
-            type: Schema.Types.Decimal128,
+            type: String,
             required: true,
-            default: 0,
+            default: '0',
         },
     },
     {
