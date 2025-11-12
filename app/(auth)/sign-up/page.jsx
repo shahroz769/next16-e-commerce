@@ -9,7 +9,7 @@ import { APP_NAME } from '@/lib/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import SignUpForm from './sign-up-form';
-import { getCurrentUser } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
 export const metadata = {
@@ -20,7 +20,7 @@ export const metadata = {
 
 const SignUpPage = async ({ searchParams }) => {
     const { callbackUrl } = await searchParams;
-    const user = await getCurrentUser();
+    const user = await auth();
     if (user) {
         return redirect(callbackUrl || '/');
     }

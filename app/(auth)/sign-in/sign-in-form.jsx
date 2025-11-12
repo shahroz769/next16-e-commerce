@@ -2,7 +2,7 @@
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { signInDefaultValues } from '@/lib/utils';
+import { signInDefaultValues } from '@/lib/constants/index';
 import Link from 'next/link';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
@@ -51,7 +51,9 @@ const SignInForm = () => {
                         type='password'
                         required
                         autoComplete='password'
-                        defaultValue={data?.password || signInDefaultValues.password}
+                        defaultValue={
+                            data?.password || signInDefaultValues.password
+                        }
                     />
                 </div>
                 <div>

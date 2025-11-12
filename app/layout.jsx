@@ -3,7 +3,7 @@ import '@/app/globals.css';
 import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from '@/lib/constants';
 import { ThemeProvider } from 'next-themes';
 import { AuthProvider } from '@/components/auth-provider';
-import { getCurrentUser } from '@/lib/auth';
+import { auth, getCurrentUser } from '@/lib/auth';
 import { Toaster } from '@/components/ui/sonner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -18,7 +18,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-    const currentUserPromise = getCurrentUser();
+    const authInstance = auth();
+    const currentUserDetailsPromise = getCurrentUser();
 
     return (
         <html lang='en' suppressHydrationWarning>
@@ -29,7 +30,10 @@ export default function RootLayout({ children }) {
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <AuthProvider currentUser={currentUserPromise}>
+                    <AuthProvider
+                        currentUser={currentUserDetailsPromise}
+                        auth={authInstance}
+                    >
                         {children}
                         <Toaster richColors />
                     </AuthProvider>

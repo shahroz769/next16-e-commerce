@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function proxy(request) {
-    console.log(request.url);
+    // console.log(request.url);
     const sessionCartId = request.cookies.get('sessionCartId')?.value;
     if (sessionCartId) {
         return NextResponse.next();
